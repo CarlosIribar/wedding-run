@@ -6,17 +6,17 @@ class MainMenu extends Phaser.State {
 
 	create() {		
 		// Set the game background colour
-		this.game.stage.backgroundColor = '#8e8869';
+		this.game.stage.backgroundColor = '#aaae9e';
 		this.game.renderer.renderSession.roundPixels = true;
 
 		this.createHeader();
 		this.createFooter();
 
 	   	let mainMenuOptions = {
-	   		'title' : '- use arrow keys -'
+	   		'title' : 'Ayuda a Yhubert y Mariana a llegar al altar'
 	   		,'items' : [
 	    		{
-					'label'    : 'Start Game'
+					'label'    : 'Jugar'
 					,'callback': _.bind(this.choosePlayer,this)
 	    		}
 	    		,{
@@ -24,7 +24,7 @@ class MainMenu extends Phaser.State {
 					,'callback': _.bind(this.showHighScores,this)
 	    		}
 	    		,{
-					'label'    : 'Credits'
+					'label'    : 'Creditos'
 					,'callback': _.bind(this.showCredits,this)
 	    		}
 	    	]	   	    	
@@ -41,17 +41,17 @@ class MainMenu extends Phaser.State {
     choosePlayer() {
     	this.mainMenu.destroy();
     	let playerMenuOptions = {
-			'title' : '- choose player -'
+			'title' : '- elige el jugador -'
 			,'items': [
 	    		{
-					'label'    : 'Groom'
+					'label'    : 'Yhubert'
 					,'callback': _.bind(function(){
 						this.game.Settings.characterType = 'groom';
 						this.chooseName();
 					},this)
 	    		}
 	    		,{
-					'label'    : 'Bride'
+					'label'    : 'Mariana'
 					,'callback': _.bind(function(){
 						this.game.Settings.characterType = 'bride';
 						this.chooseName();
@@ -75,19 +75,19 @@ class MainMenu extends Phaser.State {
 		    borderWidth: 3,
 		    borderColor: '#0b77a5',
 		    borderRadius: 4,
-		    placeHolder: 'Type your name',
+		    placeHolder: 'Escribe tu nombre',
 		});
 		input.setText(this.game.Settings.playerName);
 		input.startFocus();
 
-		var inputLabel = this.game.add.text(this.game.width/2, 230,'- Enter your name and hit ENTER -');
+		var inputLabel = this.game.add.text(this.game.width/2, 230,'- Escribe tu nombre y presiona ENTER -');
 	    inputLabel.anchor.set(0.5);
 	    inputLabel.align = 'center';
 	    inputLabel.font = 'arcade';
 	    inputLabel.fontSize = 25;
 	    inputLabel.fill = '#FFFFFF';
 
-	    var nameDescription = this.game.add.text(this.game.width/2, 340,'this is optional');
+	    var nameDescription = this.game.add.text(this.game.width/2, 340,'Esto es opcional');
 	    nameDescription.anchor.set(0.5);
 	    nameDescription.align = 'center';
 	    nameDescription.font = 'arcade';
@@ -132,35 +132,35 @@ class MainMenu extends Phaser.State {
 		let rightHearthAnimation = new PoppingHeartAnimation(rightHeart,this.game).animate();
 
 		// Add bride and groom images to the logo
-		var bride = this.game.add.image(this.game.width/2-170, headerOffset-5, 'brideLarge');
-		var groom = this.game.add.image(this.game.width/2+100, headerOffset-5, 'groomLarge');
+		var bride = this.game.add.image(this.game.width/2-170, headerOffset-35, 'brideLarge');
+		var groom = this.game.add.image(this.game.width/2+100, headerOffset-35, 'groomLarge');
 
 		// Add WEDDING text
-		var weddingText = this.game.add.text(this.game.width/2, headerOffset,'WEDDING');
-	    weddingText.anchor.set(0.5);
-	    weddingText.align = 'center';
-	    weddingText.font = 'arcade';
-	    weddingText.fontSize = 50;
-	    weddingText.fill = '#333023';
-
-		// Add RUN text
-	    var weddingText = this.game.add.text(this.game.width/2+3, headerOffset + 35,'RUN');
+		var weddingText = this.game.add.text(this.game.width/2, headerOffset,'NOS');
 	    weddingText.anchor.set(0.5);
 	    weddingText.align = 'center';
 	    weddingText.font = 'arcade';
 	    weddingText.fontSize = 120;
-	    weddingText.fill = '#504c39';
+	    weddingText.fill = '#f0d6d0';
+
+		// Add RUN text
+	    var weddingText = this.game.add.text(this.game.width/2-1, headerOffset + 56,'CASAMOS');
+	    weddingText.anchor.set(0.5);
+	    weddingText.align = 'center';
+	    weddingText.font = 'arcade';
+	    weddingText.fontSize = 55;
+	    weddingText.fill = '#f0d6d0';
 	}
 
 	createFooter() {
 
-		var firstLine = "copyright © 2017 - zsondre.hu";
-		var secondLine = "Music by Hunor Sukosd";
+		var firstLine = "12-03-2021";
+		var secondLine = "copyright © 2021 - ciribar - Music by Hunor Sukosd";
 	    var footerHeight = 80;
 		
 	    var graphics = this.game.add.graphics(0, 0);
-	    graphics.beginFill(0xF99601);    
-	    graphics.lineStyle(2, 0xF99601, 1);
+	    graphics.beginFill(0x756f73);    
+	    graphics.lineStyle(2, 0x756f73, 1);
 	    graphics.drawRect(0, this.game.world.height-footerHeight, this.game.width, footerHeight);
 	    graphics.endFill();
 

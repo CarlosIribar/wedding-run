@@ -114,9 +114,40 @@ class Main extends Phaser.State {
 	    gameOverText.fontSize = 100;
 	    gameOverText.fill = '#333023';
 	    gameOverText.stroke = '#FFFFFF';
-    	gameOverText.strokeThickness = 6;
+		gameOverText.strokeThickness = 6;
+		
+		// Mensaje del Colectivo
+		var restartText = this.game.add.text(this.game.width/2, 200,'Ups... no pudiste llevarme al altar,');
+	    restartText.anchor.set(0.5);
+	    restartText.align = 'center';
+	    restartText.font = 'arcade';
+	    restartText.fontSize = 40;
+	    restartText.fill = '#0b77a5';
+	    restartText.stroke = '#FFFFFF';
+		restartText.strokeThickness = 2;
+		
+		// Mensaje del Colectivo
+		var restartText = this.game.add.text(this.game.width/2, 220,'pero aun puedes ayudar');
+	    restartText.anchor.set(0.5);
+	    restartText.align = 'center';
+	    restartText.font = 'arcade';
+	    restartText.fontSize = 40;
+	    restartText.fill = '#0b77a5';
+	    restartText.stroke = '#FFFFFF';
+    	restartText.strokeThickness = 2;
 
-    	var restartText = this.game.add.text(this.game.width/2, 200,'ENTER - Restart the game\n ESC - Go to main menu');
+		// Mensaje del Colectivo
+		var restartText = this.game.add.text(this.game.width/2, 280,'Colectivo - Abitab Nº114015');
+	    restartText.anchor.set(0.5);
+	    restartText.align = 'center';
+	    restartText.font = 'arcade';
+	    restartText.fontSize = 60;
+	    restartText.fill = '#FF0000';
+	    restartText.stroke = '#FFFFFF';
+    	restartText.strokeThickness = 2;
+
+
+    	var restartText = this.game.add.text(this.game.width/2, 400,'ENTER - Jugar de nuevo\n ESC - Ir al menu principal');
 	    restartText.anchor.set(0.5);
 	    restartText.align = 'center';
 	    restartText.font = 'arcade';
