@@ -4,8 +4,8 @@ const app = express();
 app.use(express.static(__dirname + '/build'));
 
 app.get('/', function (req, res) {
-  console.log('login');
-  res.sendFile(__dirname + '/index.html');
+ const index = path.join(__dirname, 'build', 'index.html');
+  res.sendFile(index);
 });
 
 app.listen(process.env.PORT || 3000, () => {
