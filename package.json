@@ -4,8 +4,9 @@
   "description": "Platform game originally made for our wedding website using Phaser",
   "main": "src/index.js",
   "scripts": {
-    // "start": "gulp",
-    // "production": "gulp --production"
+    "start" : "node server.js",
+    "production": "gulp --production",
+    "dev": "gulp"
   },
   "repository": {
     "type": "git",
