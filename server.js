@@ -8,7 +8,9 @@ app.get('/', function (req, res) {
   res.sendFile(index);
 });
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server listening on http://localhost:8080');
 
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server listening on ' + process.env.PORT);
 });
+
+
