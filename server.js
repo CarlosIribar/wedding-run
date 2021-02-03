@@ -1,12 +1,55 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const fs = require('fs');
+const bodyParser = require('body-parser')
+
+const jsonParser = bodyParser.json();
+
+
 
 app.use(express.static(__dirname + '/build'));
 
 app.get('/', function (req, res) {
- const index = path.join(__dirname, 'build', 'index.html');
+  const index = path.join(__dirname, 'build', 'index.html');
   res.sendFile(index);
+});
+
+app.get('/highscore', function(req, res) {
+    const file = path.join(__dirname, 'build', '/scripts/highscore.json');
+    fs.readFile(file, (err, data) => {
+        if (err) throw err;
+        let highscore = JSON.parse(data);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(data);
+    });
+
+});
+
+app.post('/highscore', jsonParser, function(req, res) {
+
+    const newScore = req.body;
+    console.log('post');
+    console.log(req.body);
+
+    const file = path.join(__dirname, 'build', '/scripts/highscore.json');
+    fs.readFile(file, (err, data) => {
+        if (err) throw err;
+        let highscore = JSON.parse(data);
+        console.log(highscore);
+        highscore.push(newScore);
+        const newFile = JSON.stringify(highscore);
+        console.log(newFile);
+        fs.writeFile(file, newFile, (err) => {
+            if (err) throw err;
+            console.log('Data written to file');
+        });
+        res.setHeader('Content-Type', 'application/json');
+        res.end(newFile);
+    });
+
+    
+
 });
 
 

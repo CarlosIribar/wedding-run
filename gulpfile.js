@@ -29,7 +29,7 @@ var STATIC_PATH = './static';
 var ENTRY_FILE = SOURCE_PATH + '/index.js';
 var OUTPUT_FILE = 'game.js';
 
-var keepFiles = false;
+var keepFiles = true;
 
 /**
  * Simple way to check for development/production mode.
@@ -42,7 +42,7 @@ function isProduction() {
  * Logs the current build mode on the console.
  */
 function logBuildMode() {
-    
+    console.log('login')
     if (isProduction()) {
         gutil.log(gutil.colors.green('Running production build...'));
     } else {
@@ -57,21 +57,28 @@ function logBuildMode() {
  * optional task dependencies :(
  * Note: keepFiles is set to true by gulp.watch (see serve()) and reseted here to avoid conflicts.
  */
-function cleanBuild() {
+function cleanBuild(done) {
+    console.log('clean')
+
     if (!keepFiles) {
-        del(['build/**/*.*']);
+        return gulp.series(del(['build/**/*.*']));
+        
     } else {
         keepFiles = false;
     }
+    done();
 }
 
 /**
  * Copies the content of the './static' folder into the '/build' folder.
  * Check out README.md for more info on the '/static' folder.
  */
-function copyStatic() {
+function copyStatic(done) {
+    console.log('copySta')
     return gulp.src(STATIC_PATH + '/**/*')
         .pipe(gulp.dest(BUILD_PATH));
+
+    done();
 }
 
 /**
@@ -79,7 +86,7 @@ function copyStatic() {
  * This way you can call 'npm update', get the lastest Phaser version and use it on your project with ease.
  */
 function copyLibs() {
-
+    console.log('copyLibs')
     var srcList = ['phaser.min.js'];
     
     if (!isProduction()) {
@@ -95,7 +102,7 @@ function copyLibs() {
     }
             
     return gulp.src(srcList)
-        .pipe(gulp.dest(SCRIPTS_PATH));
+        .pipe(gulp.dest(SCRIPTS_PATH))
 
 }
 
@@ -109,7 +116,7 @@ function copyLibs() {
  * but have different task dependencies.
  */
 function build() {
-
+    gutil.log(gutil.colors.green('build no'));
     var sourcemapPath = SCRIPTS_PATH + '/' + OUTPUT_FILE + '.map';
     logBuildMode();
 
@@ -127,7 +134,7 @@ function build() {
     .pipe(source(OUTPUT_FILE))
     .pipe(buffer())
     .pipe(gulpif(isProduction(), uglify()))
-    .pipe(gulp.dest(SCRIPTS_PATH));
+    .pipe(gulp.dest(SCRIPTS_PATH))
 
 }
 
@@ -135,8 +142,9 @@ function build() {
  * Starts the Browsersync server.
  * Watches for file changes in the 'src' folder.
  */
-function serve() {
-    
+function serve(done) {
+    console.log('serve')
+
     var options = {
         server: {
             baseDir: BUILD_PATH
@@ -154,18 +162,19 @@ function serve() {
     gulp.watch(STATIC_PATH + '/**/*', ['watch-static']).on('change', function() {
         keepFiles = true;
     });
+    done();
 
 }
 
 
 gulp.task('cleanBuild', cleanBuild);
-gulp.task('copyStatic', ['cleanBuild'], copyStatic);
-gulp.task('copyLibs', ['copyStatic'], copyLibs);
-gulp.task('build', ['copyLibs'], build);
+gulp.task('copyStatic', copyStatic);
+gulp.task('copyLibs', copyLibs);
+gulp.task('build', build);
 gulp.task('fastBuild', build);
-gulp.task('serve', ['build'], serve);
-gulp.task('watch-js', ['fastBuild'], browserSync.reload); // Rebuilds and reloads the project when executed.
-gulp.task('watch-static', ['copyLibs'], browserSync.reload);
+gulp.task('serve', gulp.series('build'), serve);
+gulp.task('watch-js', gulp.series('fastBuild'), browserSync.reload); // Rebuilds and reloads the project when executed.
+gulp.task('watch-static', gulp.series('copyLibs'), browserSync.reload);
 
 /**
  * The tasks are executed in the following order:
@@ -174,4 +183,4 @@ gulp.task('watch-static', ['copyLibs'], browserSync.reload);
  * Read more about task dependencies in Gulp: 
  * https://medium.com/@dave_lunny/task-dependencies-in-gulp-b885c1ab48f0
  */
-gulp.task('default', ['serve']);
+gulp.task('default', gulp.series('serve'));

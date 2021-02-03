@@ -69,9 +69,9 @@ export default {
 	// URLs that are used by the Toplist service (absolute URLs)
 	,'urls' : {
 		// Getter to retrieve the top 10 players and their score
-		'getTop10' : ''
+		'getTop10' : '/highscore'
 		// Save the score at the end of the game
-		,'saveScore' : ''
+		,'saveScore' : '/highscore'
 	}
 
 	// Name of the player
