@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node server.js",
     "production": "gulp --production",
-    "start": "gulp"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
