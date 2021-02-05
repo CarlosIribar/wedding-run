@@ -19,7 +19,6 @@ app.get('/highscore', function(req, res) {
     const file = path.join(__dirname, 'build', '/scripts/highscore.json');
     fs.readFile(file, (err, data) => {
         if (err) throw err;
-        let highscore = JSON.parse(data);
         res.setHeader('Content-Type', 'application/json');
         res.end(data);
     });
@@ -29,17 +28,13 @@ app.get('/highscore', function(req, res) {
 app.post('/highscore', jsonParser, function(req, res) {
 
     const newScore = req.body;
-    console.log('post');
-    console.log(req.body);
 
     const file = path.join(__dirname, 'build', '/scripts/highscore.json');
     fs.readFile(file, (err, data) => {
         if (err) throw err;
         let highscore = JSON.parse(data);
-        console.log(highscore);
         highscore.push(newScore);
         const newFile = JSON.stringify(highscore);
-        console.log(newFile);
         fs.writeFile(file, newFile, (err) => {
             if (err) throw err;
             console.log('Data written to file');

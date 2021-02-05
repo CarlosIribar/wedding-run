@@ -42,7 +42,6 @@ function isProduction() {
  * Logs the current build mode on the console.
  */
 function logBuildMode() {
-    console.log('login')
     if (isProduction()) {
         gutil.log(gutil.colors.green('Running production build...'));
     } else {
@@ -58,7 +57,6 @@ function logBuildMode() {
  * Note: keepFiles is set to true by gulp.watch (see serve()) and reseted here to avoid conflicts.
  */
 function cleanBuild(done) {
-    console.log('clean')
 
     if (!keepFiles) {
         return gulp.series(del(['build/**/*.*']));
@@ -74,7 +72,6 @@ function cleanBuild(done) {
  * Check out README.md for more info on the '/static' folder.
  */
 function copyStatic(done) {
-    console.log('copySta')
     return gulp.src(STATIC_PATH + '/**/*')
         .pipe(gulp.dest(BUILD_PATH));
 
@@ -86,7 +83,6 @@ function copyStatic(done) {
  * This way you can call 'npm update', get the lastest Phaser version and use it on your project with ease.
  */
 function copyLibs() {
-    console.log('copyLibs')
     var srcList = ['phaser.min.js'];
     
     if (!isProduction()) {
@@ -143,7 +139,6 @@ function build() {
  * Watches for file changes in the 'src' folder.
  */
 function serve(done) {
-    console.log('serve')
 
     var options = {
         server: {

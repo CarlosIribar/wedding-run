@@ -14,7 +14,6 @@ class ToplistService {
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log('data was saved')
             },
             data: JSON.stringify({
 				playerName : playerNameD,
@@ -28,9 +27,6 @@ class ToplistService {
 	 * Something like this: return $.get(Settings.urls.getTop10);
 	 */
 	getTop10(callback) {
-		console.log(Settings.urls.getTop10);
-		console.log($.get(Settings.urls.getTop10));
-		console.log('top list');
 		return $.get(Settings.urls.getTop10, callback);
  		// return [
  		// 	{"playerName":"AE","score":"100000"}
